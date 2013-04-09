@@ -2,9 +2,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.omg.IOP.ComponentIdHelper;
-
-import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 import net.java.games.input.Component;
@@ -17,6 +14,11 @@ public class LogitechGamepad {
 		this.c = controller;
 	}
 
+	public boolean getX()
+	{
+		c.poll();
+		return (boolean)(c.getComponent(Component.Identifier.Button._0).getPollData()==1.0f);
+	}
 	
 	public boolean getA()
 	{
@@ -28,31 +30,61 @@ public class LogitechGamepad {
 	{
 		c.poll();
 		return (boolean)(c.getComponent(Component.Identifier.Button._2).getPollData()==1.0f);
-	}	
+	}
 	
-	public int getY1()
+	public boolean getY()
 	{
 		c.poll();
-		return (int)Math.floor((c.getComponent(Component.Identifier.Axis.Y).getPollData()+1f)*127f);
+		return (boolean)(c.getComponent(Component.Identifier.Button._3).getPollData()==1.0f);
+	}	
+	
+	public boolean getLB()
+	{
+		c.poll();
+		return (boolean)(c.getComponent(Component.Identifier.Button._4).getPollData()==1.0f);
+	}
+	
+	public boolean getRB()
+	{
+		c.poll();
+		return (boolean)(c.getComponent(Component.Identifier.Button._5).getPollData()==1.0f);
+	}
+	
+	public boolean getLT()
+	{
+		c.poll();
+		return (boolean)(c.getComponent(Component.Identifier.Button._6).getPollData()==1.0f);
+	}
+	
+	public boolean getRT()
+	{
+		c.poll();
+		return (boolean)(c.getComponent(Component.Identifier.Button._7).getPollData()==1.0f);
+	}
+	
+	public byte getY1()
+	{
+		c.poll();
+		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.Y).getPollData()*127f);
 	}
 	
 
-	public int getX1()
+	public byte getX1()
 	{
 		c.poll();
-		return (int)Math.floor((c.getComponent(Component.Identifier.Axis.X).getPollData()+1f)*127f);
+		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.X).getPollData()*127f);
 	}
 	
-	public int getY2()
+	public byte getY2()
 	{
 		c.poll();
-		return (int)Math.floor((c.getComponent(Component.Identifier.Axis.RZ).getPollData()+1f)*127f);
+		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.RZ).getPollData()*127f);
 	}
 	
-	public int getX2()
+	public byte getX2()
 	{
 		c.poll();
-		return (int)Math.floor((c.getComponent(Component.Identifier.Axis.Z).getPollData()+1f)*127f);
+		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.Z).getPollData()*127f);
 	}
 	
 	public static LogitechGamepad getGamepad()

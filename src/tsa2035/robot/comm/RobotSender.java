@@ -22,7 +22,6 @@ public class RobotSender extends Thread {
 	
 	public void setDrive(byte left, byte right)
 	{
-		System.out.println(left);
 		driveLeft = left;
 		driveRight = right;
 	}
