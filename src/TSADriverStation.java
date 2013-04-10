@@ -19,10 +19,21 @@ public class TSADriverStation {
 		comm.start();
 	}
 	
-	public void update()
+	
+	public int constrain(int v)
 	{
-		comm.setDrive(driver.getY1(), driver.getY2());
+		if ( v > 254 )
+			v = 254;
+		else if (v < 0)
+			v = 0;
+		return v;
 		
+	}
+	
+	public void update()
+	{	
+		comm.setDrive(driver.getY1(), driver.getY2());
+		/*
 		if ( driver.getA() )
 			comm.setLift(true);
 		else if ( driver.getB() )
@@ -34,7 +45,7 @@ public class TSADriverStation {
 			comm.setCollector(true, true);
 		else
 			comm.setCollector(false, false);
-		
+		*/
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -43,14 +54,14 @@ public class TSADriverStation {
 		System.out.println("Select driver gamepad");
 		LogitechGamepad driver = LogitechGamepad.getGamepad();
 		System.out.println("Driver selected\n");
-		Thread.sleep(500);
-		System.out.println("Select operator gamepad");
-		LogitechGamepad operator = LogitechGamepad.getGamepad();
-		System.out.println("Operator selected");
+		//Thread.sleep(500);
+		//System.out.println("Select operator gamepad");
+		//LogitechGamepad operator = LogitechGamepad.getGamepad();
+		//System.out.println("Operator selected");
 
 		System.out.println("Sending data to robot at "+robotIP);
 		
-		TSADriverStation ds = new TSADriverStation(robotIP, driver,operator);
+		TSADriverStation ds = new TSADriverStation(robotIP, driver,null);
 		while ( true )
 		{
 			ds.update();

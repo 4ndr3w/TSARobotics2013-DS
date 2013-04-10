@@ -23,7 +23,7 @@ public class RobotSender extends Thread {
 	public void setDrive(byte left, byte right)
 	{
 		driveLeft = left;
-		driveRight = right;
+		driveRight = (byte)(255-right);
 	}
 	
 	public void setCollector(boolean state, boolean reverse)

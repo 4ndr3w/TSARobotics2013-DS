@@ -65,26 +65,26 @@ public class LogitechGamepad {
 	public byte getY1()
 	{
 		c.poll();
-		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.Y).getPollData()*127f);
+		return (byte)Math.floor((c.getComponent(Component.Identifier.Axis.Y).getPollData()+1)*127f);
 	}
 	
 
 	public byte getX1()
 	{
 		c.poll();
-		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.X).getPollData()*127f);
+		return (byte)Math.floor((c.getComponent(Component.Identifier.Axis.X).getPollData()+1)*127f);
 	}
 	
 	public byte getY2()
 	{
 		c.poll();
-		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.RZ).getPollData()*127f);
+		return (byte)Math.floor((c.getComponent(Component.Identifier.Axis.RZ).getPollData()+1)*127f);
 	}
 	
 	public byte getX2()
 	{
 		c.poll();
-		return (byte)Math.floor(c.getComponent(Component.Identifier.Axis.Z).getPollData()*127f);
+		return (byte)Math.floor((c.getComponent(Component.Identifier.Axis.Z).getPollData()+1)*127f);
 	}
 	
 	public static LogitechGamepad getGamepad()
@@ -95,12 +95,10 @@ public class LogitechGamepad {
 		ArrayList <LogitechGamepad>gamepads = new ArrayList<LogitechGamepad>();
 		for ( Controller c : controllers )
 		{
+			System.out.println(c.getName());
 			if ( c.getName().equals("Logitech Dual Action") )
 				gamepads.add(new LogitechGamepad(c));
 		}
-		
-		if ( gamepads.size() == 0 )
-			return null;
 		
 		while ( true )
 		{
