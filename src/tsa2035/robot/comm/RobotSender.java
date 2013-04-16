@@ -31,9 +31,11 @@ public class RobotSender extends Thread {
 		collectorState = (byte) (state?(reverse?2:1):0);
 	}
 	
-	public void setLift(boolean up)
+	public void setLift(boolean up, boolean run)
 	{
-		liftState = (byte) (up?1:0);
+		if ( run )
+		liftState = (byte) (up?1:2);
+		else liftState = 0;
 	}
 	
 	public void run()

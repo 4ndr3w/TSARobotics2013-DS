@@ -8,10 +8,10 @@ import tsa2035.robot.comm.RobotSender;
 public class TSADriverStation {
 
 	LogitechGamepad driver = null;
-	LogitechGamepad operator = null;
+	MicrosoftJoystick operator = null;
 	RobotSender comm;
 	
-	public TSADriverStation(String robotIP, LogitechGamepad driver, LogitechGamepad operator) throws SocketException
+	public TSADriverStation(String robotIP, LogitechGamepad driver, MicrosoftJoystick operator) throws SocketException
 	{
 		comm = new RobotSender(robotIP);
 		this.driver = driver;
@@ -33,19 +33,18 @@ public class TSADriverStation {
 	public void update()
 	{	
 		comm.setDrive(driver.getY1(), driver.getY2());
-		/*
-		if ( driver.getA() )
-			comm.setLift(true);
-		else if ( driver.getB() )
-			comm.setLift(false);
+		if ( operator.getY1() < -0.8 )
+			comm.setLift(true, true);
+		else if ( operator.getY1() > 0.8 )
+			comm.setLift(false, true);
 		
-		if ( driver.getLB() )
+		if ( operator.get0() )
 			comm.setCollector(true, false);
-		else if ( driver.getLT() )
+		else if ( operator.get1() )
 			comm.setCollector(true, true);
 		else
 			comm.setCollector(false, false);
-		*/
+	
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -54,14 +53,14 @@ public class TSADriverStation {
 		System.out.println("Select driver gamepad");
 		LogitechGamepad driver = LogitechGamepad.getGamepad();
 		System.out.println("Driver selected\n");
-		//Thread.sleep(500);
-		//System.out.println("Select operator gamepad");
-		//LogitechGamepad operator = LogitechGamepad.getGamepad();
-		//System.out.println("Operator selected");
+		Thread.sleep(500);
+		System.out.println("Select operator gamepad");
+		MicrosoftJoystick operator = MicrosoftJoystick.getGamepad();
+		System.out.println("Operator selected");
 
 		System.out.println("Sending data to robot at "+robotIP);
 		
-		TSADriverStation ds = new TSADriverStation(robotIP, driver,null);
+		TSADriverStation ds = new TSADriverStation(robotIP, driver,operator);
 		while ( true )
 		{
 			ds.update();
